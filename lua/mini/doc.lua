@@ -407,6 +407,17 @@ MiniDoc.config = {
     --minidoc_replace_start write_post = --<function: various convenience actions>,
     write_post = function(d)
       local output = d.info.output
+      print('DEBUGPRINT[1]: doc.lua:409: output=' .. vim.inspect(output))
+      print(string.format("output is directory? %s", vim.fn.isdirectory(output)))
+      print(string.format("output is file? %s", vim.fn.filereadable(output)))
+      local directory = vim.fn.fnamemodify(output, ':h')
+      print(string.format("directory is directory? %s", vim.fn.isdirectory(directory)))
+      print(string.format("directory is file? %s", vim.fn.filereadable(directory)))
+
+      print("CONTENTS")
+      local glob = directory .. "\\*"
+      print("glob path " .. glob)
+      print(vim.inspect(vim.fn.glob(glob, false, true)))
 
       -- Generate help tags for directory of output file
       vim.cmd('helptags ' .. vim.fn.fnamemodify(output, ':h'))
